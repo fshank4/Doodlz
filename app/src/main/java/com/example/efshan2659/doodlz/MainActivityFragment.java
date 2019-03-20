@@ -213,4 +213,19 @@ public class MainActivityFragment extends Fragment {
             doodleView.saveImage(); // save the image
         }
     }
+
+    // called by the system when the user either grants or denies the
+    // permission for saving an image
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+        String[] permissions, int[] grantResults) {
+        // switch chooses appropriate action based on which feature
+        // requested permission
+        switch (requestCode) {
+            case SAVE_IMAGE_PERMISSION_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    doodleView.saveImage(); // save the image
+                return;
+        }
+    }
 }
