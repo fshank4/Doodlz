@@ -2,7 +2,6 @@
 // Fragment in which the DoodleView is displayed
 package com.example.efshan2659.doodlz;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.jar.Manifest;
 
 public class MainActivityFragment extends Fragment {
     private DoodleView doodleView; // handles touch events and draws
@@ -131,5 +132,39 @@ public class MainActivityFragment extends Fragment {
     private void confirmErase() {
         EraseImageDialogFragment fragment = new EraseImageDialogFragment();
         fragment.show(getFragmentManager(), "erase dialog");
+    }
+
+    // displays the fragment's menu items
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.doodle_fragment_menu, menu);
+    }
+
+    // handle choice from options menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // switch based on the MenuItem id
+        switch (item.getItemId()) {
+            case R.id.color:
+                ColorDialogFragment colorDialog = new ColorDialogFragment();
+                colorDialog.show(getFragmentManager(), "color dialog");
+                return true; // consume the menu event
+            case R.id.line_width:
+                LineWidthDialogFragment widthDialog =
+                        new LineWidthDialogFragment();
+                widthDialog.show(getFragmentManager(), "line width dialog");
+                return true; // consume the menu event
+            case R.id.delete_drawing:
+                confirmErase(); // confirm before erasing image
+                return true; // consume the menu event
+            case R.id.save:
+                saveImage(); // check permission and save current image
+                return true; // consume the menu event
+            case R.id.print:
+                doodleView.printImage(); // print the current images
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
