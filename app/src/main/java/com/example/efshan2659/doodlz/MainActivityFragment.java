@@ -53,4 +53,24 @@ public class MainActivityFragment extends Fragment {
         lastAcceleration = SensorManager.GRAVITY_EARTH;
         return view;
     }
+
+    // start listening for sensor events
+    @Override
+    public void onResume() {
+        super.onResume();
+        enableAccelerometerListening(); // listen for shake event
+    }
+
+    // enable listening for accelerometer events
+    private void enableAccelerometerListening() {
+        // get the SensorManager
+        SensorManager sensorManager =
+                (SensorManager) getActivity().getSystemService(
+                        Context.SENSOR_SERVICE);
+
+        // register to listen for accelerometer events
+        sensorManager.registerListener(sensorEventListener,
+                sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
 }
