@@ -92,4 +92,38 @@ public class MainActivityFragment extends Fragment {
         sensorManager.unregisterListener(sensorEventListener,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
+
+    // event handler for accelerometer events
+    private final SensorEventListener sensorEventListener =
+            new SensorEventListener() {
+                // use accelerometer to determine whether user shook device
+                @Override
+                public void onSensorChanged(SensorEvent event) {
+                    // ensure that other dialogs are not displayed
+                    if (!dialogOnScreen) {
+                        // get x, y, and z values for the SensorEvent
+                        float x = event.values[0];
+                        float y = event.values[1];
+                        float z = event.values[2];
+
+                        // save previous acceleration value
+                        lastAcceleration = currentAcceleration;
+
+                        // calculate the current acceleration
+                        currentAcceleration = x * x + y * y + z * z;
+
+                        // calculate the change in acceleration
+                        acceleration = currentAcceleration *
+                                (currentAcceleration - lastAcceleration);
+
+                        // if the acceleration is above a certain threshold
+                        if (acceleration > ACCELERATION_THRESHOLD)
+                            confirmErase();
+                    }
+                }
+
+                // required method of interface SensorEventListener
+                @Override
+                public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+            };
 }
