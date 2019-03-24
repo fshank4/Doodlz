@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="button_erase">Erase Image</string>
     <string name="button_set_color">Set Color</string>
-    <string name="buton_set_line_width">Set Line Width</string>
+    <string name="button_set_line_width">Set Line Width</string>
     <string name="line_imageview_description">This displays the line thickness</string>
     <string name="label_alpha">Alpha</string>
     <string name="label_red">Red</string>
