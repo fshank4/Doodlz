@@ -26,7 +26,7 @@ public class DoodleView extends View {
     private static final float TOUCH_TOLERANCE = 10;
 
     private Bitmap bitmap; // drawing area for displaying or saving
-    private Canvas canvas; // usedd to draw on the bitmap
+    private Canvas bitmapCanvas; // used to draw on the bitmap
     private final Paint paintScreen; // used to draw bitmap onto screen
     private final Paint paintLine; // used to draw line onto bitmap
 
